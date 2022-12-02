@@ -109,7 +109,8 @@ class StateManager:
     @state_id.setter
     def state_id(self, value: int):
         """
-        обновляет LeadState для self.lead в соответствии с новым значением
+        обновляет self._state_id и
+        LeadState для self.lead в соответствии с новым значением
         """
 
         if not 0 < value < 5:
@@ -123,7 +124,7 @@ class StateManager:
         """ Двигает состояние вперед """
 
         if self.state_id != 4:
-            if self.state_id % 2 == 0:
+            if self.state_id == 2:
                 self.state_id += 2
             else:
                 self.state_id += 1
