@@ -1,4 +1,5 @@
 from abc import abstractmethod
+from typing import Union, Type
 
 from django.db import transaction
 
@@ -36,7 +37,7 @@ class StateDone(AbcState):
             f'{self.__class__.__name__} has not attribute "switch"'
         )
 
-    def generate_transit(self, lead: Lead, next_state: int):
+    def generate_transit(self, lead: Lead, next_state: int) -> str:
         """
         Возвращает строку, которая отображает,
         с какого на какой State перешел Lead.
@@ -92,7 +93,10 @@ class StateManager:
         self._state_id = self.lead.state.id
 
     @property
-    def state(self):
+    def state(self) -> Type[Union[StateNew,
+                                  StateProgress,
+                                  StatePostponed,
+                                  StateDone]]:
         """
         Возвращает необходимый класс State для текущего Lead
         """
